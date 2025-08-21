@@ -23,7 +23,7 @@ const EventList = () => {
       await axios.post(`http://localhost:5000/api/events/${id}/rsvp`, {
         response,
       });
-      fetchEvents(); // Refresh list
+      fetchEvents();
     } catch (err) {
       console.error(err);
     }
@@ -61,14 +61,22 @@ const EventList = () => {
               RSVP Summary: Yes: {event.yesCount}, No: {event.noCount}, Maybe:{" "}
               {event.maybeCount}
             </p>
-            <button onClick={() => handleRSVP(event._id, "yes")}>
-              RSVP Yes
-            </button>
-            <button onClick={() => handleRSVP(event._id, "no")}>RSVP No</button>
-            <button onClick={() => handleRSVP(event._id, "maybe")}>
-              RSVP Maybe
-            </button>
-            <button onClick={() => handleDelete(event._id)}>Delete</button>
+
+            <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+              <button onClick={() => handleRSVP(event._id, "yes")}>
+                RSVP Yes
+              </button>
+              <button onClick={() => handleRSVP(event._id, "no")}>
+                RSVP No
+              </button>
+              <button onClick={() => handleRSVP(event._id, "maybe")}>
+                RSVP Maybe
+              </button>
+              <Link to={`/edit/${event._id}`}>
+                <button>Edit</button>
+              </Link>
+              <button onClick={() => handleDelete(event._id)}>Delete</button>
+            </div>
           </li>
         ))}
       </ul>
